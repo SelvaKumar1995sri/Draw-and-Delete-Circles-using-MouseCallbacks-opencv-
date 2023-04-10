@@ -35,13 +35,14 @@ canvas[0:20,160:180] = (0,255,0)#green color
 canvas[0:20,200:220] = plus
 canvas[0:20,240:260] = minus
 
-clone = canvas.copy()
+im1 = canvas.copy()
 refPt = []
 count = 0
 
 # click function to define what to do when mouse is clicked
 def click(event,x,y,flags,param):
-    global point,pressed,color,erased,radius,brushed,size,refPt, count, canvas#declaring global variable
+    global point,pressed,color,erased,radius,brushed,size, count, im1, canvas#declaring global variable
+    value = canvas[y,x]
 
     if event == cv2.EVENT_LBUTTONDOWN:
 
@@ -66,6 +67,7 @@ def click(event,x,y,flags,param):
                 size -= 3
             else:
                 size = size
+       
 
     if y in range(70, 1001):
         #various functions for brush
@@ -76,23 +78,25 @@ def click(event,x,y,flags,param):
         # while if the mouse was not clicked, or no pressed, then drag is not functional because of the If statement in the loop
         if brushed == True:
             if event == cv2.EVENT_LBUTTONDOWN:
-                refPt.append((x, y))
                 pressed = True
-                cv2.circle(canvas, (x,y), radius + size, color, line_width)
+                cv2.circle(im1, (x,y), radius + size, color, line_width)
+                circles.append([x,y])
 
             if event == cv2.EVENT_MOUSEMOVE and pressed:
-                refPt.append((x, y))
-                cv2.circle(canvas, (x,y), radius + size, color, line_width)
+                cv2.circle(im1, (x,y), radius + size, color, line_width)
+                circles.append([x,y])
 
             if event == cv2.EVENT_LBUTTONUP:
-                refPt.append((x, y))
                 pressed = False
+            if event == cv2.EVENT_RBUTTONDOWN:
+                circles.clear()
+		        
 
         if erased == True:
             color1 = (255,255,255)
             if event == cv2.EVENT_LBUTTONDOWN:
                 pressed = True
-                cv2.circle(canvas, (x,y), radius+size, clone, line_width)
+                cv2.circle(canvas, (x,y), radius+size, color1, line_width)
 
             elif event == cv2.EVENT_MOUSEMOVE and pressed == True:
                 cv2.circle(canvas, (x, y), radius+size, color1, line_width)
@@ -101,9 +105,17 @@ def click(event,x,y,flags,param):
 
 cv2.namedWindow('frame')
 cv2.setMouseCallback('frame',click)#this will respond to mouse clicks
+circles = []
 
 while(True):
-    cv2.imshow("frame",canvas)
+    # print(circles)
+    # for circle in circles:
+    #     cv2.circle(im1, (circle[0], circle[1]), 10, (255,0,0),2)    
+
+    if len(circles) == 0:
+        im1 = canvas.copy()      
+
+    cv2.imshow("frame",im1)
     ch = cv2.waitKey(1)
     if ch & 0xFF == ord('q'):#press q to quit the screen
         break
