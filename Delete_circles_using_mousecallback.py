@@ -22,7 +22,8 @@ while True:
 		cv2.circle(im1, (circle[0], circle[1]), 10, (255,0,0),2)
 
 	if len(circles) == 0:
-		im1 = im.copy()
+		# del circles[:-1]
+		im1 = im.copy() 
 
 	#cv2.circle(im, (x,y), 10, (255,0,0), 2)
 	cv2.imshow(window_title, im1)

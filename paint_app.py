@@ -4,16 +4,16 @@ import numpy as np
 
 b1 = cv2.imread('images/brush_1.png',3)#paint brush icon
 brush = cv2.resize(b1, (20,20))
-print(brush.shape)
+# print(brush.shape)
 e1 = cv2.imread('images/eraser.png',3)#eraser icon
 eraser = cv2.resize(e1, (20,20))
-print(e1.shape)
+# print(e1.shape)
 p = cv2.imread('images/plus.png',3)#to reduce the brush or eraser size
 plus = cv2.resize(p,(20,20))
-print(p.shape)
+# print(p.shape)
 m = cv2.imread('images/minus.png',3)# to increase the brush or eraser size
 minus = cv2.resize(m,(20,20))
-print(m.shape)
+# print(m.shape)
 # canvas = np.ones([1000,1000,3],'uint8')*255#white colored canvas
 canvas =cv2.imread("wall2.jpg")
 canvas = cv2.resize(canvas,(0, 0),fx=0.2, fy=0.2, interpolation = cv2.INTER_AREA)
