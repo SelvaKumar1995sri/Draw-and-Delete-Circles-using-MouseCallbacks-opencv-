@@ -64,7 +64,7 @@ class Home(object):
 
         #Key bindings.
         self.master.bind("<Return>", self.reset)
-        self.master.bind("<Motion>", self.erase)
+        self.master.bind("<B1-Motion>", self.erase)
 
     def draw(self):
         """
