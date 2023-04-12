@@ -2,7 +2,7 @@ import cv2
 import matplotlib.pyplot as plt
 
 
-img = cv2.imread("colourWall.jpg")
+img = cv2.imread("contours/IMG_20230412_091134.jpg")
 cImg = img.copy()
 img = cv2.blur(img, (5, 5))
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -24,7 +24,7 @@ ret, thresh = cv2.threshold(grad, 10, 255, cv2.THRESH_BINARY_INV)
 
 image_copy = img.copy()
 c, h = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-cv2.drawContours(image_copy, c, -1, (0,255,0), 2)
+cv2.drawContours(image_copy, c, -1, (0,255,0), 1)
 # plt.imshow(image_copy[:,:,::-1]);plt.title("contours");plt.axis("off")
 # plt.show()
 
